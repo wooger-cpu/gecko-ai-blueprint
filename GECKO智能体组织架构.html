@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GECKO 杰高乐器 · AI 智能体组织架构蓝图</title>
+<style>
+  :root {
+    --primary: #1a3a7e;
+    --primary-light: #2d5bb8;
+    --accent: #e8a93a;
+    --accent-deep: #c8881f;
+    --bg: #f5f2ec;
+    --card-bg: #ffffff;
+    --text: #1c1c1c;
+    --text-mute: #6b6b6b;
+    --line: #d9d3c7;
+    --success: #2d8a5f;
+    --warn: #c45a3a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Source Han Sans CN', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0d1f4a 0%, #1a3a7e 60%, #2d5bb8 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(232,169,58,0.15) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(45,91,184,0.4) 0%, transparent 50%);
+  }
+  .hero::after {
+    content: '♪ ♫ ♬ ♩'; 
+    position: absolute;
+    font-size: 280px;
+    color: rgba(255,255,255,0.03);
+    bottom: -80px; right: -40px;
+    font-family: serif;
+    pointer-events: none;
+    letter-spacing: 20px;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 60px 40px;
+    max-width: 1100px;
+  }
+  .hero-badge {
+    display: inline-block;
+    padding: 6px 18px;
+    background: rgba(232,169,58,0.18);
+    border: 1px solid var(--accent);
+    border-radius: 30px;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-size: 64px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    background: linear-gradient(120deg, #fff 30%, var(--accent) 70%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero h2 {
+    font-size: 22px;
+    font-weight: 300;
+    letter-spacing: 8px;
+    margin-bottom: 50px;
+    color: rgba(255,255,255,0.85);
+  }
+  .letter {
+    background: rgba(255,255,255,0.06);
+    border-left: 3px solid var(--accent);
+    padding: 32px 40px;
+    text-align: left;
+    border-radius: 4px;
+    backdrop-filter: blur(10px);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .letter .salute {
+    font-size: 18px;
+    color: var(--accent);
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .letter p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 12px;
+  }
+  .letter .signature {
+    text-align: right;
+    margin-top: 18px;
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+  }
+  .scroll-cue {
+    position: absolute;
+    bottom: 32px; left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.5);
+    font-size: 12px;
+    letter-spacing: 4px;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ===== Sections ===== */
+  section {
+    padding: 90px 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .sec-title {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .sec-title .kicker {
+    display: inline-block;
+    color: var(--accent-deep);
+    font-size: 13px;
+    letter-spacing: 5px;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .sec-title h2 {
+    font-size: 42px;
+    color: var(--primary);
+    font-weight: 800;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+  }
+  .sec-title h2::after {
+    content: '';
+    display: block;
+    width: 50px; height: 4px;
+    background: var(--accent);
+    margin: 16px auto 0;
+    border-radius: 2px;
+  }
+  .sec-title .sub {
+    color: var(--text-mute);
+    margin-top: 14px;
+    font-size: 15px;
+  }
+
+  /* ===== Company Strength ===== */
+  .strength-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .stat-card {
+    background: var(--card-bg);
+    padding: 32px 24px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(26,58,126,0.06);
+    border-top: 4px solid var(--primary);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(26,58,126,0.15);
+  }
+  .stat-card .num {
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--primary);
+    font-family: 'Georgia', serif;
+    line-height: 1;
+  }
+  .stat-card .num .unit {
+    font-size: 18px;
+    color: var(--accent-deep);
+    margin-left: 4px;
+  }
+  .stat-card .label {
+    margin-top: 12px;
+    color: var(--text-mute);
+    font-size: 14px;
+  }
+  .strength-bottom {
+    background: linear-gradient(95deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: #fff;
+    padding: 36px 40px;
+    border-radius: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+  }
+  .sb-item h4 {
+    color: var(--accent);
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+  .sb-item p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.7;
+  }
+
+  /* ===== Org Chart ===== */
+  .org-section {
+    background: linear-gradient(180deg, transparent 0%, #ede8de 100%);
+    padding: 90px 40px;
+    margin: 0 -40px;
+  }
+  .org-section-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .org-chart {
+    position: relative;
+    padding: 30px 0;
+  }
+
+  /* Level 1: 台总 */
+  .level-1 { display: flex; justify-content: center; }
+  .node-ceo {
+    background: linear-gradient(135deg, #d4af37 0%, #f5d061 100%);
+    color: var(--primary);
+    padding: 22px 60px;
+    border-radius: 50px;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+    border: 3px solid #fff;
+    position: relative;
+  }
+  .node-ceo::before {
+    content: '👑'; 
+    position: absolute;
+    top: -22px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 28px;
+  }
+
+  /* Vertical line */
+  .line-v { width: 3px; height: 40px; background: var(--primary); margin: 0 auto; }
+
+  /* Level 2: 大总管 */
+  .level-2 { display: flex; justify-content: center; }
+  .node-cmo {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: #fff;
+    padding: 18px 50px;
+    border-radius: 40px;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    box-shadow: 0 8px 24px rgba(26,58,126,0.4);
+    position: relative;
+  }
+  .node-cmo::after {
+    content: '🤖 AI 总调度';
+    position: absolute;
+    bottom: -30px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: #fff;
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  /* Horizontal bus */
+  .bus-container {
+    position: relative;
+    margin-top: 60px;
+    padding-top: 30px;
+  }
+  .bus-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 12.5%; right: 12.5%;
+    height: 3px;
+    background: var(--primary);
+  }
+  .level-3 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    position: relative;
+  }
+  .dept-col {
+    position: relative;
+  }
+  .dept-col::before {
+    content: '';
+    position: absolute;
+    top: -30px; left: 50%;
+    width: 3px; height: 30px;
+    background: var(--primary);
+    transform: translateX(-50%);
+  }
+  .dept-card {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(26,58,126,0.08);
+    border: 2px solid var(--primary);
+    transition: all 0.3s;
+  }
+  .dept-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 36px rgba(26,58,126,0.18);
+  }
+  .dept-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: #fff;
+    padding: 18px 16px;
+    text-align: center;
+    position: relative;
+  }
+  .dept-header .icon {
+    font-size: 28px;
+    margin-bottom: 6px;
+  }
+  .dept-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  .dept-header .liberation {
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+  .dept-body {
+    padding: 16px 14px;
+  }
+  .sub-agent {
+    background: #f7f5ef;
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .sub-agent:hover {
+    background: #ede8de;
+    border-left-color: var(--accent-deep);
+    transform: translateX(3px);
+  }
+  .sub-agent:last-child { margin-bottom: 0; }
+  .sa-name {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+  .sa-tag {
+    display: inline-block;
+    font-size: 10px;
+    background: var(--accent);
+    color: #fff;
+    padding: 1px 6px;
+    border-radius: 8px;
+    margin-left: auto;
+    letter-spacing: 1px;
+  }
+  .sa-desc {
+    font-size: 12px;
+    color: var(--text-mute);
+    line-height: 1.6;
+  }
+  .sa-effect {
+    margin-top: 6px;
+    font-size: 11px;
+    color: var(--success);
+    font-weight: 600;
+  }
+
+  /* ===== Liberation Section ===== */
+  .liberation-section {
+    padding: 90px 40px;
+    background: var(--card-bg);
+  }
+  .liberation-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .before-card, .after-card {
+    padding: 36px 32px;
+    border-radius: 14px;
+    position: relative;
+  }
+  .before-card {
+    background: #fdf4f0;
+    border: 2px solid #e8a89a;
+  }
+  .after-card {
+    background: #f0f7f3;
+    border: 2px solid #8ebfa1;
+  }
+  .ba-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .before-card .ba-title { color: var(--warn); }
+  .after-card .ba-title { color: var(--success); }
+  .ba-list li {
+    list-style: none;
+    padding: 10px 0;
+    border-bottom: 1px dashed rgba(0,0,0,0.08);
+    color: var(--text);
+    font-size: 14px;
+    position: relative;
+    padding-left: 24px;
+  }
+  .ba-list li:last-child { border-bottom: none; }
+  .before-card .ba-list li::before {
+    content: '✗';
+    position: absolute; left: 0;
+    color: var(--warn);
+    font-weight: bold;
+  }
+  .after-card .ba-list li::before {
+    content: '✓';
+    position: absolute; left: 0;
+    color: var(--success);
+    font-weight: bold;
+  }
+  .arrow-mid {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--accent);
+    color: #fff;
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    box-shadow: 0 6px 18px rgba(232,169,58,0.4);
+    z-index: 2;
+  }
+
+  /* ===== Roadmap ===== */
+  .roadmap {
+    padding: 90px 40px;
+    background: linear-gradient(180deg, #ede8de 0%, var(--bg) 100%);
+  }
+  .roadmap-track {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    position: relative;
+  }
+  .phase-card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 28px 26px;
+    box-shadow: 0 4px 18px rgba(26,58,126,0.08);
+    position: relative;
+    border-top: 5px solid var(--primary);
+  }
+  .phase-card:nth-child(2) { border-top-color: var(--accent); }
+  .phase-card:nth-child(3) { border-top-color: var(--success); }
+  .phase-num {
+    position: absolute;
+    top: -22px; left: 26px;
+    background: var(--primary);
+    color: #fff;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 20px;
+    box-shadow: 0 4px 12px rgba(26,58,126,0.3);
+  }
+  .phase-card:nth-child(2) .phase-num { background: var(--accent-deep); }
+  .phase-card:nth-child(3) .phase-num { background: var(--success); }
+  .phase-title {
+    font-size: 20px;
+    color: var(--primary);
+    font-weight: 700;
+    margin: 12px 0 6px;
+  }
+  .phase-time {
+    font-size: 12px;
+    color: var(--accent-deep);
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+  .phase-list li {
+    list-style: none;
+    padding: 8px 0;
+    color: var(--text);
+    font-size: 13px;
+    border-bottom: 1px dotted rgba(0,0,0,0.08);
+    padding-left: 18px;
+    position: relative;
+  }
+  .phase-list li::before {
+    content: '▸';
+    position: absolute; left: 0;
+    color: var(--accent);
+  }
+  .phase-goal {
+    margin-top: 16px;
+    padding: 12px;
+    background: #f7f5ef;
+    border-radius: 6px;
+    border-left: 3px solid var(--accent);
+    font-size: 13px;
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    background: var(--primary);
+    color: #fff;
+    padding: 60px 40px 36px;
+    text-align: center;
+  }
+  .footer h3 {
+    font-size: 26px;
+    margin-bottom: 14px;
+    color: var(--accent);
+  }
+  .footer p {
+    color: rgba(255,255,255,0.78);
+    font-size: 14px;
+    max-width: 600px;
+    margin: 0 auto 8px;
+  }
+  .footer .meta {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+  }
+
+  /* Responsive - Tablet */
+  @media (max-width: 1024px) {
+    .strength-grid { grid-template-columns: repeat(2, 1fr); }
+    .strength-bottom { grid-template-columns: 1fr; }
+    .level-3 { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .bus-container::before { left: 25%; right: 25%; }
+    .liberation-grid { grid-template-columns: 1fr; }
+    .roadmap-track { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 42px; }
+    .arrow-mid { display: none; }
+  }
+
+  /* Responsive - Mobile (WeChat in-app browser) */
+  @media (max-width: 640px) {
+    section { padding: 60px 20px; }
+    .org-section { padding: 60px 20px; margin: 0 -20px; }
+    .liberation-section { padding: 60px 20px; }
+    .roadmap { padding: 60px 20px; }
+    .footer { padding: 40px 24px 28px; }
+
+    .hero-inner { padding: 40px 20px; }
+    .hero h1 { font-size: 32px; letter-spacing: 1px; }
+    .hero h2 { font-size: 14px; letter-spacing: 4px; margin-bottom: 32px; }
+    .hero-badge { font-size: 11px; letter-spacing: 2px; padding: 5px 14px; }
+    .letter { padding: 22px 20px; }
+    .letter .salute { font-size: 16px; }
+    .letter p { font-size: 13.5px; line-height: 1.75; }
+
+    .sec-title h2 { font-size: 26px; }
+    .sec-title .kicker { font-size: 11px; letter-spacing: 3px; }
+    .sec-title .sub { font-size: 13px; }
+
+    .strength-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .stat-card { padding: 20px 12px; }
+    .stat-card .num { font-size: 30px; }
+    .stat-card .num .unit { font-size: 14px; }
+    .stat-card .label { font-size: 12px; margin-top: 8px; }
+    .strength-bottom { padding: 24px 22px; gap: 22px; }
+    .sb-item h4 { font-size: 13px; }
+    .sb-item p { font-size: 13px; }
+
+    /* Org chart on mobile - all departments stacked */
+    .node-ceo { font-size: 18px; padding: 16px 40px; letter-spacing: 3px; }
+    .node-ceo::before { font-size: 22px; top: -18px; }
+    .node-cmo { font-size: 15px; padding: 14px 32px; letter-spacing: 2px; }
+    .node-cmo::after { font-size: 10px; padding: 2px 9px; bottom: -26px; }
+    .bus-container { margin-top: 50px; padding-top: 20px; }
+    .bus-container::before { display: none; }
+    .level-3 { grid-template-columns: 1fr; gap: 20px; }
+    .dept-col::before { display: none; }
+    .dept-header { padding: 16px 14px; }
+    .dept-header .icon { font-size: 24px; }
+    .dept-header h3 { font-size: 15px; letter-spacing: 1px; }
+    .dept-header .liberation { font-size: 10px; }
+    .dept-body { padding: 14px 12px; }
+    .sub-agent { padding: 11px 12px; margin-bottom: 9px; }
+    .sa-name { font-size: 13px; flex-wrap: wrap; }
+    .sa-tag { font-size: 9px; padding: 1px 5px; }
+    .sa-desc { font-size: 11.5px; line-height: 1.55; }
+    .sa-effect { font-size: 10.5px; }
+
+    .before-card, .after-card { padding: 24px 20px; }
+    .ba-title { font-size: 17px; margin-bottom: 14px; }
+    .ba-list li { font-size: 13px; padding: 9px 0 9px 22px; }
+
+    .phase-card { padding: 26px 22px 22px; }
+    .phase-num { width: 38px; height: 38px; font-size: 17px; top: -19px; left: 22px; }
+    .phase-title { font-size: 17px; }
+    .phase-time { font-size: 11px; letter-spacing: 1.5px; }
+    .phase-list li { font-size: 12.5px; padding: 7px 0 7px 16px; }
+    .phase-goal { font-size: 12.5px; padding: 10px; }
+
+    .footer h3 { font-size: 19px; line-height: 1.5; }
+    .footer p { font-size: 13px; }
+    .footer .meta { font-size: 11px; margin-top: 24px; padding-top: 18px; }
+
+    .scroll-cue { font-size: 10px; bottom: 20px; }
+  }
+
+  /* Extra small phones */
+  @media (max-width: 380px) {
+    .hero h1 { font-size: 26px; }
+    .stat-card .num { font-size: 24px; }
+    .sec-title h2 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">GECKO · AI EMPOWERMENT BLUEPRINT</div>
+    <h1>GECKO 智能体作战体系</h1>
+    <h2>让 AI 接管琐碎  &middot;  让台总专注战略</h2>
+    <div class="letter">
+      <div class="salute">致 台总：</div>
+      <p>15 年了，您把杰高乐器从一间工坊做成了行业头部，让"GECKO"的卡宏鼓和卡林巴琴走进了 30 多个国家、1680 家代理商的橱窗。</p>
+      <p>但我们看到 —— 您一个人既要管制造、管外贸、管社媒，又要管招聘、管品控、管亚马逊。一天 24 小时不够分。</p>
+      <p>这份方案，不是再给您加一堆 KPI，而是要 <strong style="color:var(--accent)">把您从重复劳动里解放出来</strong>。AI 不是来替代员工的，是来当您的"分身"，让您每天能多睡 2 小时，多陪家人 1 小时。</p>
+      <div class="signature">—— 您的 AI 智能合伙人</div>
+    </div>
+  </div>
+  <div class="scroll-cue">SCROLL ↓</div>
+</section>
+
+<!-- ===== Company Strength ===== -->
+<section>
+  <div class="sec-title">
+    <div class="kicker">STRENGTH FOUNDATION</div>
+    <h2>为什么 GECKO 已具备 AI 化的最佳土壤</h2>
+    <p class="sub">扎实的实业底盘 + 成熟的出海品牌 = 智能化撬动的最佳支点</p>
+  </div>
+  <div class="strength-grid">
+    <div class="stat-card">
+      <div class="num">15<span class="unit">年</span></div>
+      <div class="label">乐器制造深耕（2009 起）</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">3000<span class="unit">㎡</span></div>
+      <div class="label">惠州秋长自有厂房 &middot; 29 台木工设备</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">30<span class="unit">+</span></div>
+      <div class="label">商标注册国家（中日美欧）</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">1680<span class="unit">家</span></div>
+      <div class="label">全球品牌代理商</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">50<span class="unit">+</span></div>
+      <div class="label">卡宏鼓 / 尤克里里 产品专利</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">25<span class="unit">项</span></div>
+      <div class="label">壁虎文化注册专利</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">5000<span class="unit">万</span></div>
+      <div class="label">杰高乐器厂年营业额峰值</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">1/5</div>
+      <div class="label">全球每 5 把吉他 1 把产自秋长</div>
+    </div>
+  </div>
+  <div class="strength-bottom">
+    <div class="sb-item">
+      <h4>🏭 产业矩阵</h4>
+      <p>赵进荣 · 总指挥<br>杰高乐器厂（生产）+ 壁虎文化（品牌）+ 深圳/贵州/金昶（关联）<br>已形成集团化运作</p>
+    </div>
+    <div class="sb-item">
+      <h4>🎵 产品力</h4>
+      <p>卡宏鼓 / 卡林巴琴 全球排名前列<br>电吉他 / 尤克里里 涵盖入门到专业<br>高新技术企业 + 科技型中小企业双认证</p>
+    </div>
+    <div class="sb-item">
+      <h4>🌍 区位优势</h4>
+      <p>位于"中国吉他产业之都"惠州秋长<br>全球最完整吉他产业链<br>极致供应链 + 极致成本控制</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Org Chart ===== -->
+<section class="org-section">
+  <div class="org-section-inner">
+    <div class="sec-title">
+      <div class="kicker">AI AGENT ORGANIZATION</div>
+      <h2>GECKO 智能体组织架构</h2>
+      <p class="sub">1 位 CEO + 1 位 AI 大总管 + 4 大事业部 + 9 位专属智能体助手</p>
+    </div>
+
+    <div class="org-chart">
+      <!-- Level 1 -->
+      <div class="level-1">
+        <div class="node-ceo">台总</div>
+      </div>
+      <div class="line-v"></div>
+      <!-- Level 2 -->
+      <div class="level-2">
+        <div class="node-cmo">大总管</div>
+      </div>
+
+      <!-- Level 3 - 4 Departments -->
+      <div class="bus-container">
+        <div class="level-3">
+
+          <!-- 人事招聘事业部 -->
+          <div class="dept-col">
+            <div class="dept-card">
+              <div class="dept-header">
+                <div class="icon">👥</div>
+                <h3>人事招聘事业部</h3>
+                <div class="liberation">解放工时 · 60%</div>
+              </div>
+              <div class="dept-body">
+                <div class="sub-agent">
+                  <div class="sa-name">🎓 培训助理 <span class="sa-tag">AI 导师</span></div>
+                  <div class="sa-desc">将乐器工艺、平台规则、外贸话术沉淀为 AI 知识库，新员工 7 天上手</div>
+                  <div class="sa-effect">▸ 培训周期 ↓ 50%</div>
+                </div>
+                <div class="sub-agent">
+                  <div class="sa-name">📋 考核助理 <span class="sa-tag">数据洞察</span></div>
+                  <div class="sa-desc">自动汇总各事业部 KPI、识别员工高压情绪、生成绩效建议</div>
+                  <div class="sa-effect">▸ HR 月报自动化</div>
+                </div>
+                <div class="sub-agent">
+                  <div class="sa-name">🔍 简历筛选助理 <span class="sa-tag">秒级匹配</span></div>
+                  <div class="sa-desc">针对跨境运营、小语种、乐器研发岗位，建立 AI 人才画像模型</div>
+                  <div class="sa-effect">▸ 招聘效率 ↑ 5 倍</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 阿里国际站事业部 -->
+          <div class="dept-col">
+            <div class="dept-card">
+              <div class="dept-header">
+                <div class="icon">🌐</div>
+                <h3>阿里国际站事业部</h3>
+                <div class="liberation">解放工时 · 70%</div>
+              </div>
+              <div class="dept-body">
+                <div class="sub-agent">
+                  <div class="sa-name">⚙️ 运营助手 <span class="sa-tag">SEO 引擎</span></div>
+                  <div class="sa-desc">自动生成符合 ICBU 算法的标题、长尾词、主图建议；P4P 智能调价</div>
+                  <div class="sa-effect">▸ 当前 CTR 1.97% → 目标 4%+</div>
+                </div>
+                <div class="sub-agent">
+                  <div class="sa-name">💬 业务助手 <span class="sa-tag">7×24h</span></div>
+                  <div class="sa-desc">多语言询盘秒级响应，自动识别高意向买家并推送给业务员跟进</div>
+                  <div class="sa-effect">▸ 响应时长 14h → &lt;1h</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 亚马逊事业部 -->
+          <div class="dept-col">
+            <div class="dept-card">
+              <div class="dept-header">
+                <div class="icon">📦</div>
+                <h3>亚马逊事业部</h3>
+                <div class="liberation">解放工时 · 65%</div>
+              </div>
+              <div class="dept-body">
+                <div class="sub-agent">
+                  <div class="sa-name">💼 业务助手 <span class="sa-tag">A9 优化</span></div>
+                  <div class="sa-desc">自动生成符合 A9 算法的 Listing、五点描述；评论情绪分析与回复</div>
+                  <div class="sa-effect">▸ Listing 上架效率 ↑ 8 倍</div>
+                </div>
+                <div class="sub-agent">
+                  <div class="sa-name">📊 运营助手 <span class="sa-tag">竞品雷达</span></div>
+                  <div class="sa-desc">实时抓取卡宏鼓 / 卡林巴琴全球热销榜，预警库存与广告 ACOS</div>
+                  <div class="sa-effect">▸ 选品决策 周级 → 日级</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 社媒事业部 -->
+          <div class="dept-col">
+            <div class="dept-card">
+              <div class="dept-header">
+                <div class="icon">🎬</div>
+                <h3>社媒事业部</h3>
+                <div class="liberation">解放工时 · 75%</div>
+              </div>
+              <div class="dept-body">
+                <div class="sub-agent">
+                  <div class="sa-name">🎥 业务助手 <span class="sa-tag">AIGC 创作</span></div>
+                  <div class="sa-desc">AI 批量生成卡宏鼓弹奏视频、工厂 ASMR、KOL 合作邀约邮件</div>
+                  <div class="sa-effect">▸ 内容产能 ↑ 20 倍</div>
+                </div>
+                <div class="sub-agent">
+                  <div class="sa-name">🤖 运营助手 <span class="sa-tag">数字人主播</span></div>
+                  <div class="sa-desc">"壁虎GECKO"AI数字人在 TikTok/YouTube 多语种直播带货</div>
+                  <div class="sa-effect">▸ 全天候不打烊</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Before / After ===== -->
+<section class="liberation-section">
+  <div class="sec-title">
+    <div class="kicker">BEFORE  vs  AFTER</div>
+    <h2>台总的一天，会发生什么变化？</h2>
+    <p class="sub">智能体不是替代您，是把您从"什么都管"释放成"只管最重要的"</p>
+  </div>
+  <div class="liberation-grid" style="position:relative">
+    <div class="before-card">
+      <div class="ba-title">🌙 现在 · 凌晨还在改 Listing</div>
+      <ul class="ba-list">
+        <li>早 7 点 看后台数据，手动整理日报</li>
+        <li>上午 处理欧美时差询盘，挨个回复</li>
+        <li>中午 改 Listing、催图片设计、定 P4P 出价</li>
+        <li>下午 面试新人、和工厂对接订单</li>
+        <li>晚上 看亚马逊评论、回 TikTok 评论</li>
+        <li>深夜 整理招商资料、复盘当日 GMV</li>
+        <li>周末 还在群里催进度、开复盘会</li>
+      </ul>
+    </div>
+
+    <div class="arrow-mid">→</div>
+
+    <div class="after-card">
+      <div class="ba-title">☀️ AI 上线后 · 您只做"决策"</div>
+      <ul class="ba-list">
+        <li>早 7 点 大总管推送一份《昨日经营简报》</li>
+        <li>上午 看高意向客户名单（AI 已初步沟通）</li>
+        <li>中午 审核 AI 生成的新品 Listing 与素材</li>
+        <li>下午 与核心代理商面谈、谈品牌战略</li>
+        <li>晚上 健身 / 陪家人 / 看一本好书</li>
+        <li>夜里 数字人主播在 TikTok 替你直播带货</li>
+        <li>周末 真正休息，AI 7×24 在线运转</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Roadmap ===== -->
+<section class="roadmap">
+  <div class="sec-title">
+    <div class="kicker">LANDING ROADMAP</div>
+    <h2>不画饼，三步走真正落地</h2>
+    <p class="sub">从最容易见效的环节切入，每一步都有可量化的产出</p>
+  </div>
+  <div class="roadmap-track">
+    <div class="phase-card">
+      <div class="phase-num">1</div>
+      <div class="phase-title">起步期</div>
+      <div class="phase-time">第 1 - 30 天</div>
+      <ul class="phase-list">
+        <li>大总管搭建：完成台总日报推送</li>
+        <li>阿里站运营助手：解决 57% 低 CTR 主图</li>
+        <li>下架 18 款 Cajon "僵尸品"</li>
+        <li>业务助手：14h 响应缩到 1h 以内</li>
+      </ul>
+      <div class="phase-goal">🎯 目标：店铺询盘量回升 30%</div>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-num">2</div>
+      <div class="phase-title">扩张期</div>
+      <div class="phase-time">第 31 - 90 天</div>
+      <ul class="phase-list">
+        <li>亚马逊事业部 AI 助手上线</li>
+        <li>社媒事业部数字人主播开播</li>
+        <li>高端吉他 32 款 0 询盘产品改造</li>
+        <li>Electric Bass 新增长品类放大</li>
+      </ul>
+      <div class="phase-goal">🎯 目标：海外社媒粉丝 10 万+</div>
+    </div>
+
+    <div class="phase-card">
+      <div class="phase-num">3</div>
+      <div class="phase-title">成熟期</div>
+      <div class="phase-time">第 91 - 180 天</div>
+      <ul class="phase-list">
+        <li>人事 AI 全面接管招聘 + 培训</li>
+        <li>1680 家代理商专属 AI 客户经理</li>
+        <li>跨平台数据中台打通</li>
+        <li>台总只看 3 张核心战略看板</li>
+      </ul>
+      <div class="phase-goal">🎯 目标：人均产值翻倍，台总解放 60% 时间</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<div class="footer">
+  <h3>🎵 让 GECKO 的琴声响彻全球，让台总的时间值得珍惜 🎵</h3>
+  <p>智能体不是终点，是杰高乐器迈向"国际一线乐器品牌"的加速器。</p>
+  <p>每一个 AI 助手都不会取代您团队的任何一个人，他们只会让每一个人变得更强。</p>
+  <div class="meta">
+    GECKO 杰高乐器 · 壁虎文化 &nbsp;|&nbsp; AI 智能体落地框架 V1.0 &nbsp;|&nbsp; 2026
+  </div>
+</div>
+
+</body>
+</html>
