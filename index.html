@@ -619,12 +619,43 @@
     line-height: 1.6;
   }
 
-  .action-grid {
+  .resource-group {
     max-width: 1100px;
-    margin: 0 auto;
+    margin: 0 auto 40px;
+  }
+  .resource-group:last-child { margin-bottom: 0; }
+  .resource-group-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--line);
+  }
+  .resource-group-title .rg-icon {
+    font-size: 24px;
+  }
+  .resource-group-title h3 {
+    flex: 1;
+    font-size: 19px;
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0;
+  }
+  .resource-group-title .rg-count {
+    background: var(--accent);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+  .action-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
   }
   .action-card {
     background: #fff;
@@ -879,7 +910,7 @@
     .roadmap-track { grid-template-columns: 1fr; }
     .hero h1 { font-size: 42px; }
     .arrow-mid { display: none; }
-    .action-grid { grid-template-columns: 1fr; }
+    .action-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   /* Responsive - Mobile (WeChat in-app browser) */
@@ -1152,6 +1183,7 @@
                   <div class="sa-desc">实时抓取卡宏鼓 / 卡林巴琴全球热销榜，预警库存与广告 ACOS</div>
                   <div class="sa-effect">▸ 选品决策 周级 → 日级</div>
                 </div>
+                <a href="#amazon-resource" style="display:block;margin-top:10px;padding:8px 10px;background:var(--accent);color:#fff;text-align:center;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;letter-spacing:1px">📂 查看 Amazon SOP →</a>
               </div>
             </div>
           </div>
@@ -1175,6 +1207,7 @@
                   <div class="sa-desc">"壁虎GECKO"AI数字人在 TikTok/YouTube 多语种直播带货</div>
                   <div class="sa-effect">▸ 全天候不打烊</div>
                 </div>
+                <a href="#social-resource" style="display:block;margin-top:10px;padding:8px 10px;background:var(--accent);color:#fff;text-align:center;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;letter-spacing:1px">📂 查看社媒物料包 →</a>
               </div>
             </div>
           </div>
@@ -1185,73 +1218,155 @@
   </div>
 </section>
 
-<!-- ===== HR Action Section ===== -->
+<!-- ===== Action Resource Section ===== -->
 <section class="hr-section" id="hr-action">
   <div class="sec-title">
-    <div class="kicker">HR · READY TO LAUNCH</div>
-    <h2>人事招聘事业部 · 已落地的实操资料</h2>
-    <p class="sub">不只是 PPT 蓝图 —— 这些资料已经为您准备好，今天即可启用</p>
+    <div class="kicker">READY-TO-USE RESOURCE HUB</div>
+    <h2>GECKO 实操资料库 · 即取即用</h2>
+    <p class="sub">不只是 PPT 蓝图 —— 6 份资料已为您准备好，今天即可启用</p>
   </div>
 
   <div class="hr-banner">
     <div class="hr-banner-icon">📂</div>
     <div class="hr-banner-text">
-      <h4>READY-TO-USE  ·  即取即用</h4>
-      <p>以下 3 份资料已基于 GECKO 实际情况定制完成。点击任意卡片即可查看完整内容，也可下载原文件直接交给 HR 使用。</p>
+      <h4>READY-TO-USE  ·  按事业部分组</h4>
+      <p>以下 6 份资料覆盖人事招聘、亚马逊运营、社媒内容三大事业部。点击任意卡片可在线查看完整内容，也可一键下载原件转发给团队成员直接使用。</p>
     </div>
   </div>
 
-  <div class="action-grid">
-    <!-- Card 1: 招聘启事 -->
-    <div class="action-card" onclick="openModal('modal-job')">
-      <div class="action-card-cover">
-        <div class="action-icon">📢</div>
-        <h3>招聘启事 · 一页纸</h3>
-        <span class="tag">PDF · 可发布</span>
-      </div>
-      <div class="action-body">
-        <div class="action-summary">
-          阿里巴巴国际站 AI 运营专家招聘 1 名 · 综合月薪 5.5K-8K + 年终奖 · 配备 Accio Work 顶尖 AI 工具 · 立即可发布到 BOSS/智联/猎聘
+  <!-- 人事招聘事业部 -->
+  <div class="resource-group">
+    <div class="resource-group-title">
+      <span class="rg-icon">👥</span>
+      <h3>人事招聘事业部</h3>
+      <span class="rg-count">4 份资料</span>
+    </div>
+    <div class="action-grid">
+      <!-- Card 1: 招聘启事 -->
+      <div class="action-card" onclick="openModal('modal-job')">
+        <div class="action-card-cover">
+          <div class="action-icon">📢</div>
+          <h3>招聘启事 · 一页纸</h3>
+          <span class="tag">PDF · 可发布</span>
         </div>
-        <div class="action-buttons">
-          <button class="btn btn-primary" onclick="event.stopPropagation(); openModal('modal-job')">📖 查看内容</button>
-          <a class="btn btn-secondary" href="docs/GECKO-Job-Posting.pdf" download onclick="event.stopPropagation()">⬇ 下载 PDF</a>
+        <div class="action-body">
+          <div class="action-summary">
+            阿里国际站 AI 运营专家 1 名 · 综合月薪 5.5K-8K + 年终奖 · 立即可发布到 BOSS/智联/猎聘
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-primary" onclick="event.stopPropagation(); openModal('modal-job')">📖 查看</button>
+            <a class="btn btn-secondary" href="docs/GECKO-Job-Posting.pdf" download onclick="event.stopPropagation()">⬇ PDF</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: 试用期考核 -->
+      <div class="action-card" onclick="openModal('modal-probation')">
+        <div class="action-card-cover">
+          <div class="action-icon">📅</div>
+          <h3>试用期考核计划</h3>
+          <span class="tag">3 个月 · 分阶段</span>
+        </div>
+        <div class="action-body">
+          <div class="action-summary">
+            上手期 → 突破期 → 体系期 · 每月清晰转正卡点 · 让新人 3 个月独立运营
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-primary" onclick="event.stopPropagation(); openModal('modal-probation')">📖 查看</button>
+            <a class="btn btn-secondary" href="docs/GECKO-Probation-Plan.pdf" download onclick="event.stopPropagation()">⬇ PDF</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: 绩效考核 -->
+      <div class="action-card" onclick="openModal('modal-kpi')">
+        <div class="action-card-cover">
+          <div class="action-icon">📊</div>
+          <h3>绩效考核方案</h3>
+          <span class="tag">Excel · 含权重</span>
+        </div>
+        <div class="action-body">
+          <div class="action-summary">
+            薪酬 + 4 大考核维度（内容资产 40% · 转化效率 30% · 平台健康 20% · 创新贡献 10%）
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-primary" onclick="event.stopPropagation(); openModal('modal-kpi')">📖 查看</button>
+            <a class="btn btn-secondary" href="docs/GECKO-KPI-Plan.xlsx" download onclick="event.stopPropagation()">⬇ Excel</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: 招聘漏斗追踪 -->
+      <div class="action-card" onclick="openModal('modal-funnel')">
+        <div class="action-card-cover">
+          <div class="action-icon">🎯</div>
+          <h3>招聘漏斗追踪表</h3>
+          <span class="tag">Excel · 4 表联动</span>
+        </div>
+        <div class="action-body">
+          <div class="action-summary">
+            候选人主表 + 漏斗看板 + 一面评分表 + 试用期 90 天追踪 · 含转化率自动计算
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-primary" onclick="event.stopPropagation(); openModal('modal-funnel')">📖 查看</button>
+            <a class="btn btn-secondary" href="docs/GECKO-Recruitment-Funnel.xlsx" download onclick="event.stopPropagation()">⬇ Excel</a>
+          </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Card 2: 试用期考核 -->
-    <div class="action-card" onclick="openModal('modal-probation')">
-      <div class="action-card-cover">
-        <div class="action-icon">📅</div>
-        <h3>试用期考核计划</h3>
-        <span class="tag">3 个月 · 分阶段</span>
-      </div>
-      <div class="action-body">
-        <div class="action-summary">
-          上手期 → 突破期 → 体系期，3 个月分阶段递进 · 每月清晰的转正卡点 · 让新人 3 天明确目标、3 个月独立运营
+  <!-- 亚马逊事业部 -->
+  <div class="resource-group" id="amazon-resource">
+    <div class="resource-group-title">
+      <span class="rg-icon">📦</span>
+      <h3>亚马逊事业部</h3>
+      <span class="rg-count">1 份资料</span>
+    </div>
+    <div class="action-grid">
+      <!-- Card 5: Amazon SOP -->
+      <div class="action-card" onclick="openModal('modal-amazon')">
+        <div class="action-card-cover">
+          <div class="action-icon">📦</div>
+          <h3>Amazon 运营 SOP</h3>
+          <span class="tag">PDF · A9 实战</span>
         </div>
-        <div class="action-buttons">
-          <button class="btn btn-primary" onclick="event.stopPropagation(); openModal('modal-probation')">📖 查看内容</button>
-          <a class="btn btn-secondary" href="docs/GECKO-Probation-Plan.pdf" download onclick="event.stopPropagation()">⬇ 下载 PDF</a>
+        <div class="action-body">
+          <div class="action-summary">
+            Listing 标题公式 + 五点描述模板 + 关键词布局 + ACOS 监控周报 + 新品 14 天冷启动打法
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-primary" onclick="event.stopPropagation(); openModal('modal-amazon')">📖 查看</button>
+            <a class="btn btn-secondary" href="docs/GECKO-Amazon-SOP.pdf" download onclick="event.stopPropagation()">⬇ PDF</a>
+          </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Card 3: 绩效考核 -->
-    <div class="action-card" onclick="openModal('modal-kpi')">
-      <div class="action-card-cover">
-        <div class="action-icon">📊</div>
-        <h3>绩效考核方案</h3>
-        <span class="tag">Excel · 含权重</span>
-      </div>
-      <div class="action-body">
-        <div class="action-summary">
-          薪酬 + 4 大考核维度（内容资产 40% · 转化效率 30% · 平台健康 20% · 创新贡献 10%）· 清晰的 KPI 与数据来源标准
+  <!-- 社媒事业部 -->
+  <div class="resource-group" id="social-resource">
+    <div class="resource-group-title">
+      <span class="rg-icon">🎬</span>
+      <h3>社媒事业部</h3>
+      <span class="rg-count">1 份资料</span>
+    </div>
+    <div class="action-grid">
+      <!-- Card 6: Social Media Kit -->
+      <div class="action-card" onclick="openModal('modal-social')">
+        <div class="action-card-cover">
+          <div class="action-icon">🎬</div>
+          <h3>社媒内容运营物料包</h3>
+          <span class="tag">PDF · 含 3 类脚本</span>
         </div>
-        <div class="action-buttons">
-          <button class="btn btn-primary" onclick="event.stopPropagation(); openModal('modal-kpi')">📖 查看内容</button>
-          <a class="btn btn-secondary" href="docs/GECKO-KPI-Plan.xlsx" download onclick="event.stopPropagation()">⬇ 下载 Excel</a>
+        <div class="action-body">
+          <div class="action-summary">
+            TikTok 短视频脚本 + YouTube 长视频框架 + KOL 邀约邮件 + Feeds 周更日历 + AI 数字人话术
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-primary" onclick="event.stopPropagation(); openModal('modal-social')">📖 查看</button>
+            <a class="btn btn-secondary" href="docs/GECKO-Social-Media-Kit.pdf" download onclick="event.stopPropagation()">⬇ PDF</a>
+          </div>
         </div>
       </div>
     </div>
@@ -1441,6 +1556,222 @@
     <div class="modal-footer">
       <a class="btn btn-primary" href="docs/GECKO-KPI-Plan.xlsx" download>⬇ 下载 Excel 原件</a>
       <button class="btn btn-secondary" onclick="closeModal('modal-kpi')">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Modal: 招聘漏斗追踪表 ===== -->
+<div class="modal-overlay" id="modal-funnel" onclick="if(event.target===this)closeModal('modal-funnel')">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>🎯 招聘漏斗追踪表 · 配套招聘启事使用</h2>
+      <button class="modal-close" onclick="closeModal('modal-funnel')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="highlight-box">
+        <strong>🎯 工具定位：</strong>4 张表联动，从简历投递到试用期转正全流程数字化追踪。所有数据自动汇总到漏斗看板，让 HR 一眼看出哪个环节"漏水"。
+      </div>
+
+      <h3>📋 Sheet 1 · 候选人主表</h3>
+      <p>用于登记每一位候选人的核心信息。<strong>21 个字段</strong>覆盖从投递到入职全周期。</p>
+      <ul>
+        <li>候选人编号 / 投递日期 / 姓名 / 联系方式</li>
+        <li>简历来源（BOSS/智联/猎聘/内推 等下拉选）</li>
+        <li>国际站经验年限 / 英语水平 / 期望薪资</li>
+        <li>初筛 → 一面 → 二面 → Offer → 入职 完整时间线</li>
+        <li>已预填 5 行示例数据，覆盖各阶段状态</li>
+      </ul>
+
+      <h3>📊 Sheet 2 · 漏斗转化看板</h3>
+      <p>自动统计每个阶段的转化率，与健康目标对比。</p>
+      <table>
+        <tr><th>阶段</th><th>健康目标</th><th>异常提示</th></tr>
+        <tr><td>简历投递</td><td>—</td><td>—</td></tr>
+        <tr><td>初筛通过</td><td>≥ 30%</td><td>低于 24% 复盘 JD</td></tr>
+        <tr><td>一面通过</td><td>≥ 50%</td><td>低于 40% 复盘筛选标准</td></tr>
+        <tr><td>二面通过</td><td>≥ 60%</td><td>低于 48% 复盘面试官</td></tr>
+        <tr><td>Offer 发放</td><td>≥ 80%</td><td>低于 64% 复盘薪资</td></tr>
+        <tr><td>成功入职</td><td>≥ 70%</td><td>低于 56% 复盘 Offer 流程</td></tr>
+      </table>
+
+      <h3>📝 Sheet 3 · 一面评分表</h3>
+      <p>6 个维度 × 100 分制 · 自动求和 · 自动给出录用建议（≥80 强烈推荐 / 60-79 推荐 / &lt;60 不推荐）。</p>
+      <ul>
+        <li>国际站运营理解（20 分）</li>
+        <li>AI 工具熟练度（20 分）</li>
+        <li>英语沟通（15 分）</li>
+        <li>数据分析能力（15 分）</li>
+        <li>文化匹配度（15 分）</li>
+        <li>学习能力（15 分）</li>
+      </ul>
+
+      <h3>📅 Sheet 4 · 试用期 90 天追踪</h3>
+      <p>新人入职后自动计算试用期到期日（入职 +90 天），按月跟踪 KPI 达成率，颜色预警：</p>
+      <ul>
+        <li>🟢 ≥90% — 转正候选</li>
+        <li>🟡 60%-89% — 重点辅导</li>
+        <li>🔴 &lt;60% — 启动淘汰流程</li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <a class="btn btn-primary" href="docs/GECKO-Recruitment-Funnel.xlsx" download>⬇ 下载 Excel 原件</a>
+      <button class="btn btn-secondary" onclick="closeModal('modal-funnel')">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Modal: Amazon SOP ===== -->
+<div class="modal-overlay" id="modal-amazon" onclick="if(event.target===this)closeModal('modal-amazon')">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>📦 GECKO · Amazon 运营 SOP（A9 实战）</h2>
+      <button class="modal-close" onclick="closeModal('modal-amazon')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="highlight-box">
+        <strong>🎯 适用范围：</strong>Cajon 卡宏鼓 / Kalimba 卡林巴 / Acoustic Guitar 等核心品类<br>
+        <strong>📐 核心原则：</strong>用 AI 工具完成 80% 重复劳动，运营人员专注策略与决策
+      </div>
+
+      <h3>📝 一、Listing 标题公式</h3>
+      <p><strong>公式：</strong>[品牌] + [核心词] + [材质/规格] + [人群] + [场景] + [卖点]</p>
+      <h4>三大品类示例</h4>
+      <ul>
+        <li><strong>Cajon</strong>：GECKO Full Size Cajon Drum Solid Birch Wood for Adults Beginners Professional Flamenco Box Drum with Bag</li>
+        <li><strong>Kalimba</strong>：GECKO 17 Keys Kalimba Thumb Piano Mahogany Wood for Kids Adults with Tune Hammer Music Book</li>
+        <li><strong>Guitar</strong>：GECKO 41 Inch Acoustic Guitar Mahogany Cutaway Full Size for Beginners Adults with Bag Tuner Picks</li>
+      </ul>
+      <p>⚠️ 长度控制：≤200 字符，前 80 字符必须包含核心词</p>
+
+      <h3>📌 二、五点描述模板</h3>
+      <ol>
+        <li><strong>USP 核心卖点</strong>（如 "15-Year Master Craftsmanship"）</li>
+        <li><strong>材质工艺细节</strong>（实木型号、声学结构、手工调音）</li>
+        <li><strong>使用场景与人群</strong>（专业演出 / 教学 / 礼品）</li>
+        <li><strong>包装清单</strong>（主体 + 配件 + 教程）</li>
+        <li><strong>售后承诺</strong>（30 天无理由 + 1 年质保）</li>
+      </ol>
+
+      <h3>🔍 三、关键词布局策略</h3>
+      <table>
+        <tr><th>类型</th><th>定位</th><th>示例</th></tr>
+        <tr><td>核心词</td><td>曝光大词</td><td>Cajon Drum / Kalimba / Acoustic Guitar</td></tr>
+        <tr><td>长尾词</td><td>高转化</td><td>Cajon for Adults Professional / 17 Keys Kalimba with Tune Hammer</td></tr>
+      </table>
+      <p><strong>后台 Search Terms 原则：</strong>不重复标题词，覆盖材质 / 人群 / 场景 / 品牌词</p>
+
+      <h3>📊 四、ACOS 监控周报模板</h3>
+      <table>
+        <tr><th>指标</th><th>本周值</th><th>健康标准</th></tr>
+        <tr><td>总广告花费</td><td>—</td><td>—</td></tr>
+        <tr><td>广告订单数</td><td>—</td><td>—</td></tr>
+        <tr><td>ACOS</td><td>—</td><td>&lt; 30%</td></tr>
+        <tr><td>ROAS</td><td>—</td><td>&gt; 3</td></tr>
+        <tr><td>自然单占比</td><td>—</td><td>&gt; 60%</td></tr>
+      </table>
+
+      <h3>🤖 五、A9 优化每日动作（AI 完成）</h3>
+      <ul>
+        <li><strong>早 9:00</strong> · AI 抓昨日竞品价格 → 自动调价</li>
+        <li><strong>10:00</strong> · 检查 ASIN 关键词排名 → 调整广告竞价</li>
+        <li><strong>下午 16:00</strong> · 处理 Review 与差评 → AI 生成回复</li>
+        <li><strong>晚 21:00</strong> · 监控 BSR 与库存 → 触发补货预警</li>
+      </ul>
+
+      <h3>🚀 六、新品冷启动 14 天打法</h3>
+      <table>
+        <tr><th>阶段</th><th>动作</th><th>预算</th></tr>
+        <tr><td>D1-D3</td><td>开广告自动 + 手动精准</td><td>$30/天</td></tr>
+        <tr><td>D4-D7</td><td>根据 Search Term Report 添加关键词</td><td>调优</td></tr>
+        <tr><td>D8-D14</td><td>调整 Bid，ACOS 控到 40% 以下</td><td>放量</td></tr>
+      </table>
+      <p>🎯 <strong>目标</strong>：14 天内拿到 10 个真实 Review，进入 Top 100</p>
+    </div>
+    <div class="modal-footer">
+      <a class="btn btn-primary" href="docs/GECKO-Amazon-SOP.pdf" download>⬇ 下载 PDF 原件</a>
+      <button class="btn btn-secondary" onclick="closeModal('modal-amazon')">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Modal: Social Media Kit ===== -->
+<div class="modal-overlay" id="modal-social" onclick="if(event.target===this)closeModal('modal-social')">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>🎬 GECKO · 社媒内容运营物料包</h2>
+      <button class="modal-close" onclick="closeModal('modal-social')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="highlight-box">
+        <strong>📱 覆盖平台：</strong>TikTok / YouTube / Instagram / Facebook<br>
+        <strong>🎯 核心目标：</strong>用 AI 工具批量生产内容，让 GECKO 在海外社媒持续曝光
+      </div>
+
+      <h3>🎥 一、TikTok 短视频脚本（3 类模板）</h3>
+
+      <h4>模板 A · 开箱测评类（15-30 秒）</h4>
+      <ul>
+        <li><strong>0-3s</strong> 钩子："Why does this $XX Cajon sound like a $XXX one?"</li>
+        <li><strong>3-10s</strong> 开箱过程 + 工艺特写</li>
+        <li><strong>10-25s</strong> 演奏 3 段不同节奏</li>
+        <li><strong>25-30s</strong> CTA："Link in bio - DM for wholesale"</li>
+      </ul>
+
+      <h4>模板 B · 工艺溯源类（30-45 秒）</h4>
+      <ul>
+        <li><strong>0-3s</strong> 钩子："Inside a 15-year guitar factory in China"</li>
+        <li><strong>3-15s</strong> 工厂航拍 + 老师傅手工调音</li>
+        <li><strong>15-35s</strong> 每个工序特写（选材 → 切割 → 打磨 → 上漆 → 调音）</li>
+        <li><strong>35-45s</strong> 成品演奏 + 品牌 logo 收尾</li>
+      </ul>
+
+      <h4>模板 C · 教学引流类（30-60 秒）</h4>
+      <ul>
+        <li><strong>0-3s</strong> 钩子："3 Kalimba songs you can learn in 5 minutes"</li>
+        <li><strong>3-50s</strong> 分别演奏 3 首简单曲目</li>
+        <li><strong>50-60s</strong> CTA："Comment your favorite song + Get free music sheet"</li>
+      </ul>
+
+      <h3>📹 二、YouTube 长视频框架（5-10 分钟）</h3>
+      <table>
+        <tr><th>模块</th><th>时长</th><th>内容</th></tr>
+        <tr><td>开场 Hook</td><td>0-30s</td><td>演奏震撼片段</td></tr>
+        <tr><td>品牌介绍</td><td>30s-1min</td><td>GECKO 15 年工厂</td></tr>
+        <tr><td>产品 Demo</td><td>1-5min</td><td>详细演奏 + 音色对比</td></tr>
+        <tr><td>工艺解析</td><td>5-8min</td><td>与廉价款对比</td></tr>
+        <tr><td>CTA</td><td>8-10min</td><td>引导评论 / 关注 / 链接</td></tr>
+      </table>
+
+      <h3>✉️ 三、KOL 合作邀约邮件（3 套英文模板）</h3>
+      <p>PDF 完整收录 3 套模板，按 KOL 量级匹配：</p>
+      <ul>
+        <li><strong>小 KOL（1w-10w 粉丝）</strong>：免费寄样模式</li>
+        <li><strong>中 KOL（10w-100w 粉丝）</strong>：付费合作 + 佣金分成</li>
+        <li><strong>大 KOL（100w+ 粉丝）</strong>：战略合作 + 品牌联名</li>
+      </ul>
+
+      <h3>📅 四、Feeds 粉丝通周更日历</h3>
+      <table>
+        <tr><th>星期</th><th>内容类型</th><th>示例</th></tr>
+        <tr><td>周一</td><td>新品 / 上新</td><td>Monday Drop: New 2026 Pro Series Kalimba</td></tr>
+        <tr><td>周三</td><td>工厂故事</td><td>Behind the scenes - meet our Master Luthier</td></tr>
+        <tr><td>周五</td><td>用户演奏</td><td>UGC 转发 + 致谢</td></tr>
+        <tr><td>周日</td><td>教学 / 福利</td><td>Free chord chart - swipe up</td></tr>
+      </table>
+
+      <h3>🤖 五、AI 数字人主播话术</h3>
+      <p>覆盖 TikTok 直播开场白、主推话术、转化话术，让"壁虎 GECKO"数字人 7×24h 不间断输出。</p>
+
+      <h3>🎯 六、内容评估 KPI</h3>
+      <ul>
+        <li>短视频：CTR &gt; 3% · Watch Time &gt; 60% · Engagement &gt; 5%</li>
+        <li>邀约转化：免费寄样 → 出片率 &gt; 60%</li>
+        <li>Feeds：每周覆盖 5000+ Followers · 月新增粉丝 ≥ 200</li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <a class="btn btn-primary" href="docs/GECKO-Social-Media-Kit.pdf" download>⬇ 下载 PDF 原件</a>
+      <button class="btn btn-secondary" onclick="closeModal('modal-social')">关闭</button>
     </div>
   </div>
 </div>
