@@ -26,6 +26,17 @@
     color: var(--text);
     line-height: 1.7;
     overflow-x: hidden;
+    width: 100%;
+  }
+  img, svg { max-width: 100%; display: block; }
+  /* Reusable inner container - the single source of width/centering */
+  .container {
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 32px;
+    padding-right: 32px;
   }
 
   /* ===== Hero ===== */
@@ -132,15 +143,19 @@
     50% { transform: translateX(-50%) translateY(8px); }
   }
 
-  /* ===== Sections ===== */
+  /* ===== Sections (full-width background, inner container handles width) ===== */
   section {
-    padding: 90px 40px;
-    max-width: 1400px;
-    margin: 0 auto;
+    padding: 90px 0;
+    width: 100%;
   }
+  section > .container, section > .sec-title { /* sec-title also acts as inner */ }
+  /* Default sec-title becomes a width-bounded inner */
   .sec-title {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto 56px;
+    padding: 0 32px;
     text-align: center;
-    margin-bottom: 56px;
   }
   .sec-title .kicker {
     display: inline-block;
@@ -174,10 +189,13 @@
 
   /* ===== Company Strength ===== */
   .strength-grid {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto 40px;
+    padding: 0 32px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
-    margin-bottom: 40px;
   }
   .stat-card {
     background: var(--card-bg);
@@ -209,6 +227,12 @@
     color: var(--text-mute);
     font-size: 14px;
   }
+  .strength-bottom-wrap {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
   .strength-bottom {
     background: linear-gradient(95deg, var(--primary) 0%, var(--primary-light) 100%);
     color: #fff;
@@ -233,13 +257,16 @@
   /* ===== Org Chart ===== */
   .org-section {
     background: linear-gradient(180deg, transparent 0%, #ede8de 100%);
-    padding: 90px 40px;
-    margin: 0 -40px;
+    padding: 90px 0;
+    width: 100%;
   }
   .org-section-inner {
-    max-width: 1400px;
+    width: 100%;
+    max-width: 1280px;
     margin: 0 auto;
+    padding: 0 32px;
   }
+  .org-section-inner > .sec-title { padding: 0; max-width: none; margin: 0 0 56px; }
   .org-chart {
     position: relative;
     padding: 30px 0;
@@ -412,12 +439,15 @@
 
   /* ===== Liberation Section ===== */
   .liberation-section {
-    padding: 90px 40px;
+    padding: 90px 0;
     background: var(--card-bg);
+    width: 100%;
   }
   .liberation-grid {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 32px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 32px;
@@ -485,12 +515,15 @@
 
   /* ===== Roadmap ===== */
   .roadmap {
-    padding: 90px 40px;
+    padding: 90px 0;
     background: linear-gradient(180deg, #ede8de 0%, var(--bg) 100%);
+    width: 100%;
   }
   .roadmap-track {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 32px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
@@ -563,8 +596,9 @@
   .footer {
     background: var(--primary);
     color: #fff;
-    padding: 60px 40px 36px;
+    padding: 60px 32px 36px;
     text-align: center;
+    width: 100%;
   }
   .footer h3 {
     font-size: 26px;
@@ -588,12 +622,19 @@
 
   /* ===== HR Action Section ===== */
   .hr-section {
-    padding: 90px 40px;
+    padding: 90px 0;
     background: linear-gradient(180deg, #fff 0%, #faf7f0 100%);
+    width: 100%;
   }
+  .hr-inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  .hr-section > .sec-title { max-width: 1200px; }
   .hr-banner {
-    max-width: 1100px;
-    margin: 0 auto 40px;
+    margin: 0 0 40px;
     background: linear-gradient(95deg, #1a3a7e 0%, #2d5bb8 100%);
     color: #fff;
     padding: 24px 30px;
@@ -620,8 +661,7 @@
   }
 
   .resource-group {
-    max-width: 1100px;
-    margin: 0 auto 40px;
+    margin: 0 0 40px;
   }
   .resource-group:last-child { margin-bottom: 0; }
   .resource-group-title {
@@ -902,12 +942,17 @@
 
   /* Responsive - Tablet */
   @media (max-width: 1024px) {
-    .strength-grid { grid-template-columns: repeat(2, 1fr); }
-    .strength-bottom { grid-template-columns: 1fr; }
+    .container, .sec-title, .strength-grid, .strength-bottom-wrap,
+    .org-section-inner, .liberation-grid, .roadmap-track, .hr-inner {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+    .strength-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .strength-bottom { grid-template-columns: 1fr; padding: 28px 30px; }
     .level-3 { grid-template-columns: repeat(2, 1fr); gap: 20px; }
     .bus-container::before { left: 25%; right: 25%; }
-    .liberation-grid { grid-template-columns: 1fr; }
-    .roadmap-track { grid-template-columns: 1fr; }
+    .liberation-grid { grid-template-columns: 1fr; gap: 24px; }
+    .roadmap-track { grid-template-columns: 1fr; gap: 22px; }
     .hero h1 { font-size: 42px; }
     .arrow-mid { display: none; }
     .action-grid { grid-template-columns: repeat(2, 1fr); }
@@ -915,11 +960,17 @@
 
   /* Responsive - Mobile (WeChat in-app browser) */
   @media (max-width: 640px) {
-    section { padding: 60px 20px; }
-    .org-section { padding: 60px 20px; margin: 0 -20px; }
-    .liberation-section { padding: 60px 20px; }
-    .roadmap { padding: 60px 20px; }
-    .footer { padding: 40px 24px 28px; }
+    section { padding: 60px 0; }
+    .container, .sec-title, .strength-grid, .strength-bottom-wrap,
+    .org-section-inner, .liberation-grid, .roadmap-track, .hr-inner {
+      padding-left: 18px;
+      padding-right: 18px;
+    }
+    .org-section { padding: 60px 0; }
+    .liberation-section { padding: 60px 0; }
+    .roadmap { padding: 60px 0; }
+    .footer { padding: 40px 18px 28px; }
+    .hr-section { padding: 60px 0; }
 
     .hero-inner { padding: 40px 20px; }
     .hero h1 { font-size: 32px; letter-spacing: 1px; }
@@ -980,7 +1031,6 @@
     .scroll-cue { font-size: 10px; bottom: 20px; }
 
     /* HR Section mobile */
-    .hr-section { padding: 60px 20px; }
     .hr-banner { padding: 18px 20px; flex-direction: column; text-align: center; gap: 10px; }
     .hr-banner-icon { font-size: 32px; }
     .hr-banner-text h4 { font-size: 11px; letter-spacing: 2px; }
@@ -1072,6 +1122,7 @@
       <div class="label">全球每 5 把吉他 1 把产自秋长</div>
     </div>
   </div>
+  <div class="strength-bottom-wrap">
   <div class="strength-bottom">
     <div class="sb-item">
       <h4>🏭 产业矩阵</h4>
@@ -1086,6 +1137,7 @@
       <p>位于"中国吉他产业之都"惠州秋长<br>全球最完整吉他产业链<br>极致供应链 + 极致成本控制</p>
     </div>
   </div>
+  </div><!-- /.strength-bottom-wrap -->
 </section>
 
 <!-- ===== Org Chart ===== -->
@@ -1226,6 +1278,7 @@
     <p class="sub">不只是 PPT 蓝图 —— 6 份资料已为您准备好，今天即可启用</p>
   </div>
 
+  <div class="hr-inner">
   <div class="hr-banner">
     <div class="hr-banner-icon">📂</div>
     <div class="hr-banner-text">
@@ -1371,6 +1424,7 @@
       </div>
     </div>
   </div>
+  </div><!-- /.hr-inner -->
 </section>
 
 <!-- ===== Modal: 招聘启事 ===== -->
