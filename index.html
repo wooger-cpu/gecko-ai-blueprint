@@ -940,6 +940,228 @@
   }
   .modal-footer .btn { flex: 1; padding: 12px; font-size: 14px; }
 
+  /* ===== Workflow Demo Section ===== */
+  .workflow-section {
+    padding: 90px 0;
+    background: linear-gradient(180deg, #faf7f0 0%, #fff 100%);
+    width: 100%;
+  }
+  .workflow-inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  .scenario-bubble {
+    background: linear-gradient(135deg, #fff8e8 0%, #fff 100%);
+    border: 2px dashed var(--accent);
+    border-radius: 16px;
+    padding: 26px 30px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 6px 18px rgba(232,169,58,0.12);
+  }
+  .scenario-bubble .icon-big {
+    font-size: 48px;
+    flex-shrink: 0;
+  }
+  .scenario-bubble .scenario-content { flex: 1; }
+  .scenario-bubble .scenario-label {
+    font-size: 12px;
+    color: var(--accent-deep);
+    letter-spacing: 3px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .scenario-bubble .scenario-text {
+    font-size: 16px;
+    color: var(--primary);
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.6;
+  }
+  .scenario-bubble .scenario-text::before { content: '\201C'; font-size: 28px; color: var(--accent); vertical-align: -6px; margin-right: 4px; }
+  .scenario-bubble .scenario-text::after { content: '\201D'; font-size: 28px; color: var(--accent); vertical-align: -6px; margin-left: 4px; }
+
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+  }
+  .legend-dot {
+    width: 14px; height: 14px;
+    border-radius: 4px;
+    display: inline-block;
+  }
+  .legend-dot.ai { background: #2d5bb8; }
+  .legend-dot.human { background: #c45a3a; }
+  .legend-dot.decision { background: var(--accent); }
+  .legend-dot.system { background: var(--success); }
+
+  /* Workflow steps - timeline style */
+  .workflow-timeline {
+    position: relative;
+    padding-left: 36px;
+  }
+  .workflow-timeline::before {
+    content: '';
+    position: absolute;
+    left: 14px; top: 8px; bottom: 8px;
+    width: 3px;
+    background: linear-gradient(180deg, #2d5bb8 0%, var(--accent) 50%, var(--success) 100%);
+    border-radius: 2px;
+  }
+  .wf-step {
+    position: relative;
+    margin-bottom: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(26,58,126,0.07);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .wf-step:hover {
+    transform: translateX(4px);
+    box-shadow: 0 8px 22px rgba(26,58,126,0.14);
+  }
+  .wf-step:last-child { margin-bottom: 0; }
+  .wf-step::before {
+    content: attr(data-step);
+    position: absolute;
+    left: -36px;
+    top: 18px;
+    width: 31px; height: 31px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid var(--primary);
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .wf-step.ai::before { border-color: #2d5bb8; color: #2d5bb8; background: #fff; }
+  .wf-step.human::before { border-color: #c45a3a; color: #c45a3a; background: #fff; }
+  .wf-step.decision::before { border-color: var(--accent-deep); color: var(--accent-deep); background: #fff; }
+  .wf-step.system::before { border-color: var(--success); color: var(--success); background: #fff; }
+
+  .wf-header {
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-left: 5px solid var(--primary);
+  }
+  .wf-step.ai .wf-header { border-left-color: #2d5bb8; background: linear-gradient(95deg, rgba(45,91,184,0.06) 0%, transparent 60%); }
+  .wf-step.human .wf-header { border-left-color: #c45a3a; background: linear-gradient(95deg, rgba(196,90,58,0.06) 0%, transparent 60%); }
+  .wf-step.decision .wf-header { border-left-color: var(--accent); background: linear-gradient(95deg, rgba(232,169,58,0.10) 0%, transparent 60%); }
+  .wf-step.system .wf-header { border-left-color: var(--success); background: linear-gradient(95deg, rgba(45,138,95,0.06) 0%, transparent 60%); }
+
+  .wf-tag {
+    flex-shrink: 0;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #fff;
+  }
+  .wf-step.ai .wf-tag { background: #2d5bb8; }
+  .wf-step.human .wf-tag { background: #c45a3a; }
+  .wf-step.decision .wf-tag { background: var(--accent-deep); }
+  .wf-step.system .wf-tag { background: var(--success); }
+
+  .wf-title {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--primary);
+  }
+  .wf-time {
+    font-size: 12px;
+    color: var(--text-mute);
+    background: #f7f5ef;
+    padding: 3px 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+
+  .wf-body {
+    padding: 14px 20px 18px;
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .wf-body ul { margin: 6px 0 0 18px; }
+  .wf-body li { margin-bottom: 4px; }
+  .wf-body strong { color: var(--primary); }
+  .wf-output {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: #f7f5ef;
+    border-radius: 6px;
+    font-size: 12.5px;
+    color: var(--primary);
+    border-left: 3px solid var(--accent);
+  }
+  .wf-output strong { color: var(--accent-deep); }
+  .wf-decision-box {
+    margin-top: 10px;
+    padding: 12px 14px;
+    background: linear-gradient(95deg, rgba(232,169,58,0.12) 0%, transparent 80%);
+    border-radius: 6px;
+    border-left: 3px solid var(--accent);
+    font-size: 12.5px;
+    color: var(--primary);
+  }
+
+  /* Summary stats below workflow */
+  .wf-summary {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .wf-stat {
+    background: #fff;
+    border-radius: 12px;
+    padding: 22px 18px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(26,58,126,0.07);
+    border-top: 4px solid var(--accent);
+  }
+  .wf-stat:nth-child(1) { border-top-color: #2d5bb8; }
+  .wf-stat:nth-child(2) { border-top-color: #c45a3a; }
+  .wf-stat:nth-child(3) { border-top-color: var(--accent); }
+  .wf-stat:nth-child(4) { border-top-color: var(--success); }
+  .wf-stat .stat-num {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1;
+    font-family: Georgia, serif;
+  }
+  .wf-stat .stat-label {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--text-mute);
+    letter-spacing: 1px;
+  }
+
   /* Responsive - Tablet */
   @media (max-width: 1024px) {
     .container, .sec-title, .strength-grid, .strength-bottom-wrap,
@@ -956,6 +1178,7 @@
     .hero h1 { font-size: 42px; }
     .arrow-mid { display: none; }
     .action-grid { grid-template-columns: repeat(2, 1fr); }
+    .wf-summary { grid-template-columns: repeat(2, 1fr); }
   }
 
   /* Responsive - Mobile (WeChat in-app browser) */
@@ -1052,6 +1275,28 @@
     .modal-body th, .modal-body td { padding: 8px 10px; }
     .modal-footer { padding: 12px 18px; }
     .modal-footer .btn { font-size: 13px; padding: 10px; }
+
+    /* Workflow mobile */
+    .workflow-section { padding: 60px 0; }
+    .scenario-bubble { flex-direction: column; text-align: center; padding: 20px; gap: 10px; }
+    .scenario-bubble .icon-big { font-size: 38px; }
+    .scenario-bubble .scenario-text { font-size: 14px; }
+    .legend { gap: 12px 18px; margin-bottom: 28px; }
+    .legend-item { font-size: 12px; }
+    .workflow-timeline { padding-left: 28px; }
+    .workflow-timeline::before { left: 11px; width: 2px; }
+    .wf-step::before { left: -28px; width: 24px; height: 24px; font-size: 11px; border-width: 2px; }
+    .wf-header { padding: 12px 14px; flex-wrap: wrap; gap: 8px; }
+    .wf-title { font-size: 13.5px; width: 100%; order: 2; }
+    .wf-tag { order: 1; font-size: 10px; }
+    .wf-time { order: 3; font-size: 11px; }
+    .wf-body { padding: 12px 14px 14px; font-size: 12.5px; }
+    .wf-body ul { margin-left: 16px; }
+    .wf-output, .wf-decision-box { font-size: 11.5px; padding: 9px 12px; }
+    .wf-summary { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 32px; }
+    .wf-stat { padding: 18px 12px; }
+    .wf-stat .stat-num { font-size: 26px; }
+    .wf-stat .stat-label { font-size: 11px; }
   }
 
   /* Extra small phones */
@@ -1188,7 +1433,8 @@
                   <div class="sa-desc">针对跨境运营、小语种、乐器研发岗位，建立 AI 人才画像模型</div>
                   <div class="sa-effect">▸ 招聘效率 ↑ 5 倍</div>
                 </div>
-                <a href="#hr-action" style="display:block;margin-top:10px;padding:8px 10px;background:var(--accent);color:#fff;text-align:center;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;letter-spacing:1px">📂 已备好 3 份实操资料 →</a>
+                <a href="#hr-action" style="display:block;margin-top:10px;padding:8px 10px;background:var(--accent);color:#fff;text-align:center;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;letter-spacing:1px">📂 已备好 4 份实操资料 →</a>
+                <a href="#workflow-demo" style="display:block;margin-top:6px;padding:8px 10px;background:var(--primary);color:#fff;text-align:center;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;letter-spacing:1px">🔄 查看完整工作流演示 →</a>
               </div>
             </div>
           </div>
@@ -1425,6 +1671,273 @@
     </div>
   </div>
   </div><!-- /.hr-inner -->
+</section>
+
+<!-- ===== Workflow Demo Section ===== -->
+<section class="workflow-section" id="workflow-demo">
+  <div class="sec-title">
+    <div class="kicker">END-TO-END WORKFLOW DEMO</div>
+    <h2>大总管工作流演示 · 一句话发起招聘</h2>
+    <p class="sub">从台总下令到新人入职 · AI 任务 vs 人工任务 全程透明</p>
+  </div>
+
+  <div class="workflow-inner">
+
+    <!-- 场景对话 -->
+    <div class="scenario-bubble">
+      <div class="icon-big">👑</div>
+      <div class="scenario-content">
+        <div class="scenario-label">SCENARIO  ·  台总在 Accio Work 输入</div>
+        <div class="scenario-text">招一个国际站运营，底薪 4.5K + 1.5K 绩效，大专以上，国际站经验 1 年左右，乐器爱好者优先</div>
+      </div>
+    </div>
+
+    <!-- 图例 -->
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot ai"></span>AI 自动执行</div>
+      <div class="legend-item"><span class="legend-dot human"></span>HR 人工操作</div>
+      <div class="legend-item"><span class="legend-dot decision"></span>台总决策点</div>
+      <div class="legend-item"><span class="legend-dot system"></span>系统自动记录</div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="workflow-timeline">
+
+      <!-- Step 1 -->
+      <div class="wf-step ai" data-step="1">
+        <div class="wf-header">
+          <span class="wf-tag">AI 自动</span>
+          <div class="wf-title">大总管接令 + 智能解析 JD</div>
+          <span class="wf-time">⏱ 2 分钟</span>
+        </div>
+        <div class="wf-body">
+          大总管自动把自然语言指令解析为<strong>结构化招聘需求</strong>，调用 GECKO 招聘启事模板，生成 3 个平台发布版本：
+          <ul>
+            <li>Boss 直聘版（重视频/聊天即时性）</li>
+            <li>智联招聘版（重技能标签匹配）</li>
+            <li>猎聘版（重高级人才包装）</li>
+          </ul>
+          <div class="wf-output"><strong>产出：</strong>3 份发布版 JD + 1 份内部审批版 + 关键词建议清单</div>
+        </div>
+      </div>
+
+      <!-- Step 2 - 决策 -->
+      <div class="wf-step decision" data-step="2">
+        <div class="wf-header">
+          <span class="wf-tag">台总决策</span>
+          <div class="wf-title">审批 JD（手机一键操作）</div>
+          <span class="wf-time">⏱ 1 分钟</span>
+        </div>
+        <div class="wf-body">
+          大总管把 3 份 JD 推送到台总微信/Accio Work 消息中心，台总只需选择：
+          <div class="wf-decision-box">
+            ✅ <strong>批准发布</strong>  /  ✏️ <strong>修改某条</strong>（语音批注即可）  /  ⏸ <strong>暂缓</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 - 人工 -->
+      <div class="wf-step human" data-step="3">
+        <div class="wf-header">
+          <span class="wf-tag">HR 人工</span>
+          <div class="wf-title">发布到 3 大招聘平台</div>
+          <span class="wf-time">⏱ 10 分钟</span>
+        </div>
+        <div class="wf-body">
+          ⚠️ <strong>为什么这一步必须 HR 真人操作</strong>：Boss/智联/猎聘均禁止自动化发布（账号会被封禁）。HR 只需复制 AI 已写好的内容点击发布即可，无需思考文案。
+          <div class="wf-output"><strong>HR 任务清单（AI 自动生成）：</strong>① Boss 直聘登录发布 → ② 智联招聘登录发布 → ③ 猎聘登录发布 → ④ 把 3 个职位链接发回大总管</div>
+        </div>
+      </div>
+
+      <!-- Step 4 - 人工 -->
+      <div class="wf-step human" data-step="4">
+        <div class="wf-header">
+          <span class="wf-tag">HR 人工</span>
+          <div class="wf-title">批量导出简历 → 喂给 AI</div>
+          <span class="wf-time">⏱ 每天 5 分钟</span>
+        </div>
+        <div class="wf-body">
+          HR 每天下班前从 Boss/智联后台 <strong>批量导出当日新增简历</strong>（Excel/PDF 格式，平台原生支持），上传到 Accio Work 大总管对话框。
+          <div class="wf-output">💡 <strong>合规说明</strong>：人工导出 = 完全合规，AI 自动爬取 = 账号会被封。这一步是 GECKO 招聘账号长期可用的关键保护机制。</div>
+        </div>
+      </div>
+
+      <!-- Step 5 - AI -->
+      <div class="wf-step ai" data-step="5">
+        <div class="wf-header">
+          <span class="wf-tag">AI 自动</span>
+          <div class="wf-title">AI 人事智能体筛选简历</div>
+          <span class="wf-time">⏱ 5 分钟（处理 100 份）</span>
+        </div>
+        <div class="wf-body">
+          AI 按台总指令的 5 项标准逐份打分（满分 100）：
+          <ul>
+            <li>底薪期望匹配（25 分）</li>
+            <li>学历达标（20 分）</li>
+            <li>国际站经验年限（25 分）</li>
+            <li>乐器爱好者加分（10 分）</li>
+            <li>综合素质 · 英语/AI 工具/学习力（20 分）</li>
+          </ul>
+          <div class="wf-output"><strong>产出：</strong>Top10 推荐名单（含每人匹配度 + AI 推荐理由 + 个性化面试问题）+ 不推荐名单及原因</div>
+        </div>
+      </div>
+
+      <!-- Step 6 - AI -->
+      <div class="wf-step ai" data-step="6">
+        <div class="wf-header">
+          <span class="wf-tag">AI 自动</span>
+          <div class="wf-title">AI 起草约面话术（多平台）</div>
+          <span class="wf-time">⏱ 1 分钟</span>
+        </div>
+        <div class="wf-body">
+          针对 Top10 候选人，AI 自动生成：
+          <ul>
+            <li>Boss 直聘聊天话术（口语化、亲切）</li>
+            <li>邮件约面（正式、含公司亮点）</li>
+            <li>短信兜底（候选人无回应时使用）</li>
+          </ul>
+          <div class="wf-output"><strong>产出：</strong>10 份个性化约面文案，HR 一键复制发送</div>
+        </div>
+      </div>
+
+      <!-- Step 7 - 人工 -->
+      <div class="wf-step human" data-step="7">
+        <div class="wf-header">
+          <span class="wf-tag">HR 人工</span>
+          <div class="wf-title">HR 发送约面 + 协调时间</div>
+          <span class="wf-time">⏱ 30 分钟</span>
+        </div>
+        <div class="wf-body">
+          HR 在 Boss/微信发送 AI 已写好的话术 → 与候选人确认面试时间 → 把已约时间录入 Accio Work（一句话即可：<em>"张三定了周三下午 3 点视频面"</em>）
+          <div class="wf-output">📅 <strong>大总管自动操作</strong>：写入考勤系统、给面试官发提醒、给候选人发面试链接</div>
+        </div>
+      </div>
+
+      <!-- Step 8 - 人工 -->
+      <div class="wf-step human" data-step="8">
+        <div class="wf-header">
+          <span class="wf-tag">HR 人工</span>
+          <div class="wf-title">面试官面试 + AI 实时记录</div>
+          <span class="wf-time">⏱ 30 分钟/人</span>
+        </div>
+        <div class="wf-body">
+          面试官按 AI 准备的个性化问题清单提问。若使用视频面试（如腾讯会议）：
+          <ul>
+            <li>AI 自动转录面试对话</li>
+            <li>AI 实时给出"6 维度评分参考"</li>
+            <li>面试官只需最终拍板打分</li>
+          </ul>
+          <div class="wf-output">📋 <strong>录入方式：</strong>面试官在评分表勾选即可，AI 自动算出总分 + 录用建议</div>
+        </div>
+      </div>
+
+      <!-- Step 9 - 系统 -->
+      <div class="wf-step system" data-step="9">
+        <div class="wf-header">
+          <span class="wf-tag">系统自动</span>
+          <div class="wf-title">实时更新招聘漏斗追踪表</div>
+          <span class="wf-time">⏱ 实时</span>
+        </div>
+        <div class="wf-body">
+          所有候选人状态自动同步到 [招聘漏斗追踪表] 4 个工作表：
+          <ul>
+            <li>候选人主表 · 自动更新各阶段状态</li>
+            <li>漏斗看板 · 自动计算转化率</li>
+            <li>一面评分表 · 自动汇总面试官打分</li>
+            <li>试用期追踪 · 入职后自动启动 90 天追踪</li>
+          </ul>
+          <div class="wf-output">🔔 <strong>异常预警</strong>：转化率低于健康目标时自动给台总微信发提醒</div>
+        </div>
+      </div>
+
+      <!-- Step 10 - 决策 -->
+      <div class="wf-step decision" data-step="10">
+        <div class="wf-header">
+          <span class="wf-tag">台总决策</span>
+          <div class="wf-title">每周一 9 点收《招聘周报》</div>
+          <span class="wf-time">⏱ 阅读 3 分钟</span>
+        </div>
+        <div class="wf-body">
+          大总管每周一 9 点自动推送到台总微信：
+          <div class="wf-decision-box">
+            📊 <strong>本周招聘周报 · 第 X 周</strong><br>
+            • 本周新增简历 32 份，AI 筛选通过 8 份<br>
+            • 一面 5 人 · 通过 3 人 · 二面通过 1 人<br>
+            • ⚠️ <strong>待您决策：</strong>候选人张三能力突出但期望薪资 9K（超预算 1K）<br>
+            • 操作：✅ 批准超预算  /  ❌ 谈降  /  📞 我先聊聊
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 11 - 决策 -->
+      <div class="wf-step decision" data-step="11">
+        <div class="wf-header">
+          <span class="wf-tag">台总决策</span>
+          <div class="wf-title">关键节点 Offer 审批</div>
+          <span class="wf-time">⏱ 1 分钟</span>
+        </div>
+        <div class="wf-body">
+          只有以下场景需要台总亲自决策（其他全自动）：
+          <ul>
+            <li><strong>Offer 薪资超预算 1K 以上</strong> · 推送微信审批</li>
+            <li><strong>候选人提出特殊条件</strong>（远程/股权等）· 推送微信审批</li>
+            <li><strong>HR 与 AI 建议冲突</strong> · 推送微信仲裁</li>
+          </ul>
+          <div class="wf-output">⚡ <strong>常规 Offer</strong>：AI 按薪资框架自动生成 Offer，HR 直接发出，无需打扰台总</div>
+        </div>
+      </div>
+
+      <!-- Step 12 - AI -->
+      <div class="wf-step ai" data-step="12">
+        <div class="wf-header">
+          <span class="wf-tag">AI 自动</span>
+          <div class="wf-title">入职衔接 + 启动试用期追踪</div>
+          <span class="wf-time">⏱ 全自动</span>
+        </div>
+        <div class="wf-body">
+          新人确认入职后，大总管自动启动：
+          <ul>
+            <li>📅 自动生成 90 天试用期日程（基于 [GECKO 试用期考核计划]）</li>
+            <li>🎓 推送培训助理智能体 · 启动 7 天上手培训</li>
+            <li>📊 启动月度 KPI 追踪 · 按 [绩效考核方案] 4 大维度自动评分</li>
+            <li>📧 30/60/90 天自动给台总推送试用期评估报告</li>
+          </ul>
+          <div class="wf-output">🎯 <strong>闭环完成</strong>：从台总一句话指令 → 到新人转正，全流程数字化追溯</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Summary stats -->
+    <div class="wf-summary">
+      <div class="wf-stat">
+        <div class="stat-num">5</div>
+        <div class="stat-label">AI 自动步骤</div>
+      </div>
+      <div class="wf-stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">HR 人工步骤</div>
+      </div>
+      <div class="wf-stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">台总决策点</div>
+      </div>
+      <div class="wf-stat">
+        <div class="stat-num">5min</div>
+        <div class="stat-label">台总周均投入</div>
+      </div>
+    </div>
+
+    <!-- Bottom note -->
+    <div style="margin-top:36px;padding:24px 28px;background:linear-gradient(95deg,var(--primary) 0%,var(--primary-light) 100%);color:#fff;border-radius:12px;text-align:center;box-shadow:0 8px 24px rgba(26,58,126,0.2)">
+      <div style="font-size:13px;color:var(--accent);letter-spacing:2px;margin-bottom:8px;font-weight:600">EXECUTIVE INSIGHT</div>
+      <p style="font-size:15px;color:rgba(255,255,255,0.95);line-height:1.7;margin:0">
+        整个招聘流程从下令到入职，<strong style="color:var(--accent)">台总只需要做 3 个决策</strong>（审批 JD / 周报阅读 / 关键 Offer），其他 9 个环节由 AI + HR 协作完成。<br>
+        这就是 GECKO 智能体体系的核心价值 —— <strong style="color:var(--accent)">不是替代人，而是让台总把精力用在真正需要决策的地方</strong>。
+      </p>
+    </div>
+
+  </div>
 </section>
 
 <!-- ===== Modal: 招聘启事 ===== -->
